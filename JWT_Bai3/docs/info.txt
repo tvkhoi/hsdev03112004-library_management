@@ -1,0 +1,77 @@
+Đề bài: Quản lý Thư viện
+📚 Mô tả:
+Xây dựng một hệ thống quản lý thư viện đơn giản, với các chức năng:
+
+CRUD cho Sách, Độc giả, Phiếu mượn
+
+Xem danh sách sách đang được mượn
+
+API REST (không cần giao diện HTML, chỉ cần Postman)
+
+JWT Authentication đơn giản (Admin vs User)
+
+🔧 1. Công nghệ sử dụng
+Thành phần	Công nghệ
+Backend	Spring Boot 3+
+Build tool	Maven / Gradle
+ORM	Spring Data JPA
+DB	H2 / MySQL / PostgreSQL
+Auth	Spring Security + JWT
+API	RESTful
+IDE	IntelliJ / Eclipse
+
+🧱 2. Cấu trúc bảng
+Bảng Book (Sách)
+Thuộc tính	Kiểu
+id	Long
+title	String
+author	String
+quantity	int
+
+Bảng Reader (Độc giả)
+Thuộc tính	Kiểu
+id	Long
+name	String
+email	String
+password	String
+
+Bảng BorrowRecord (Phiếu mượn)
+Thuộc tính	Kiểu
+id	Long
+reader	Reader
+book	Book
+borrowDate	Date
+returnDate	Date
+
+✅ 3. Các chức năng cần làm
+📘 BookController
+GET /books – lấy danh sách sách
+
+POST /books – thêm sách
+
+PUT /books/{id} – cập nhật sách
+
+DELETE /books/{id} – xóa sách
+
+🧑 ReaderController
+POST /register – đăng ký tài khoản
+
+POST /login – đăng nhập → trả JWT
+
+GET /me – xem thông tin người dùng đang đăng nhập
+
+📄 BorrowController
+POST /borrow – mượn sách (giảm số lượng sách nếu còn)
+
+POST /return/{id} – trả sách (tăng lại số lượng)
+
+GET /borrowed – danh sách sách đang được mượn
+
+🔐 4. Authentication
+Sử dụng JWT để phân biệt người dùng đã đăng nhập
+
+Có 2 role: ADMIN, USER
+
+Admin được thêm sách, xóa sách
+
+User chỉ được mượn và xem
